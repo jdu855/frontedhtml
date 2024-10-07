@@ -112,14 +112,17 @@
                     'email': email,
                     'password': password
                 }
-
             }).then(function (response) {
-                if (response.data.status == 'success') {
-                    window.location = 'dashboard.html';
+                console.log(response.data);
+                if (response.data.estado == 'succes') {
+                    window.location.href = './dashboard.html';
                 } else {
-                    alert('sigue intentando' + response.data.message)
+                    alert('sigue intentando' + response.data.mensaje)
                 }
-            });
+            }).catch(function (error) {
+                console.error(error);
+                alert('Error: ' + error.message);
+            });;;
 
         })
     </script>
