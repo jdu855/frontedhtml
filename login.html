@@ -101,30 +101,30 @@
 
     <script>
         document.getElementById('btnIngresar').addEventListener('click', function (e) {
-            e.preventDefault()
-            let email = document.getElementById('email').value;
-            let password = document.getElementById('password').value;
+    e.preventDefault()
+    let username = document.getElementById('email').value;  // Cambiado a 'username'
+    let password = document.getElementById('password').value;
 
-            axios({
-                method: 'post',
-                url: 'http://127.0.0.1:8000/login',
-                data: {
-                    'email': email,
-                    'password': password
-                }
-            }).then(function (response) {
-                console.log(response.data);
-                if (response.data.estado == 'success') {
-                    window.location.href = './dashboard.html';
-                } else {
-                    alert('sigue intentando' + response.data.mensaje)
-                }
-            }).catch(function (error) {
-                console.error(error);
-                alert('Error: ' + error.message);
-            });
+    axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/login',
+        data: {
+            'username': username,  // Cambiado a 'username'
+            'password': password
+        }
+    }).then(function (response) {
+        console.log(response.data);
+        if (response.data.estado == 'success') {
+            window.location.href = './dashboard.html';
+        } else {
+            alert('Sigue intentando: ' + response.data.mensaje);
+        }
+    }).catch(function (error) {
+        console.error(error);
+        alert('Error: ' + error.message);
+    });
+});
 
-        });
 
 
     </script>
