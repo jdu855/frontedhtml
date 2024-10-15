@@ -47,6 +47,7 @@
                     </table>
                 </div>
 
+                <!-- Modal Crear Usuario -->
                 <div class="modal fade" id="crearUsuarioModal" tabindex="-1" aria-labelledby="crearUsuarioModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -59,14 +60,24 @@
                             <div class="modal-body">
                                 <form id="formularioCrearUsuarioModal">
                                     <div class="mb-3">
-                                        <label for="emailModal" class="form-label">Email</label>
-                                        <input type="text" class="form-control" id="emailModal" placeholder="Email"
-                                            required>
+                                        <label for="emailModal" class="form-label">Marca</label>
+                                        <input type="text" class="form-control" id="emailModal"
+                                            placeholder="Marca del automovil" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="passwordModal" class="form-label">Contraseña</label>
-                                        <input type="password" class="form-control" id="passwordModal"
-                                            placeholder="Contraseña" required>
+                                        <label for="passwordModal" class="form-label">Modelo</label>
+                                        <input type="text" class="form-control" id="passwordModal"
+                                            placeholder="Modelo del automovil" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="colorModal" class="form-label">Color</label>
+                                        <input type="text" class="form-control" id="colorModal"
+                                            placeholder="Color del automovil" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaModal" class="form-label">Fecha de compra</label>
+                                        <input type="text" class="form-control" id="fechaModal"
+                                            placeholder="Fecha de compra (YYYY-MM-DD)" required>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Crear</button>
                                 </form>
@@ -75,6 +86,7 @@
                     </div>
                 </div>
 
+                <!-- Modal Editar Usuario -->
                 <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -87,14 +99,24 @@
                             <div class="modal-body">
                                 <form id="formularioEditarUsuarioModal">
                                     <div class="mb-3">
-                                        <label for="emailModalEdit" class="form-label">Email</label>
-                                        <input type="text" class="form-control" id="emailModalEdit" placeholder="Email"
-                                            required>
+                                        <label for="emailModalEdit" class="form-label">Marca</label>
+                                        <input type="text" class="form-control" id="emailModalEdit"
+                                            placeholder="Marca del automovil" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="passwordModalEdit" class="form-label">Contraseña</label>
-                                        <input type="password" class="form-control" id="passwordModalEdit"
-                                            placeholder="Contraseña" required>
+                                        <label for="passwordModalEdit" class="form-label">Modelo</label>
+                                        <input type="text" class="form-control" id="passwordModalEdit"
+                                            placeholder="Modelo del automovil" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="colorModalEdit" class="form-label">Color</label>
+                                        <input type="text" class="form-control" id="colorModalEdit"
+                                            placeholder="Color del automovil" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaModalEdit" class="form-label">Fecha de compra</label>
+                                        <input type="text" class="form-control" id="fechaModalEdit"
+                                            placeholder="Fecha de compra (YYYY-MM-DD)" required>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Actualizar</button>
                                 </form>
@@ -108,7 +130,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        let currentUserId = null; 
+        let currentUserId = null;
 
         // Listar usuarios
         document.getElementById('btnListar').addEventListener('click', function () {
@@ -120,15 +142,18 @@
                     response.data.forEach(element => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${element.username}</td>
-                            <td>${element.password}</td>
-                            <td>
-                                <button class="btnEditar" data-userid="${element.id}">Actualizar</button>
-                                <button class="btnEliminar" data-userid="${element.id}">Eliminar</button>
-                            </td>
-                        `;
+        <td>${element.marca}</td>
+        <td>${element.modelo}</td>
+        <td>${element.color}</td>
+        <td>${element.fecha_de_compra}</td>
+        <td>
+            <button class="btnEditar" data-userid="${element.id}">Actualizar</button>
+            <button class="btnEliminar" data-userid="${element.id}">Eliminar</button>
+        </td>
+    `;
                         tabla.appendChild(row);
                     });
+
 
                     document.getElementById('tablaUsuarios').style.display = 'block';
                 })
@@ -142,6 +167,8 @@
         document.getElementById('btnCrear').addEventListener('click', function () {
             document.getElementById('emailModal').value = '';
             document.getElementById('passwordModal').value = '';
+            document.getElementById('colorModal').value = '';
+            document.getElementById('fechaModal').value = '';
 
             var modal = new bootstrap.Modal(document.getElementById('crearUsuarioModal'));
             modal.show();
@@ -149,14 +176,16 @@
 
         document.getElementById('formularioCrearUsuarioModal').addEventListener('submit', function (event) {
             event.preventDefault();
-            const username = document.getElementById('emailModal').value; 
-            const password = document.getElementById('passwordModal').value;
-
-            console.log({ username, password }); 
+            const marca = document.getElementById('emailModal').value;
+            const modelo = document.getElementById('passwordModal').value;
+            const color = document.getElementById('colorModal').value;
+            const fechaDeCompra = document.getElementById('fechaModal').value; // Asegúrate de tener este campo
 
             axios.post('http://127.0.0.1:8000/user', {
-                username: username,
-                password: password
+                marca: marca,
+                modelo: modelo,
+                color: color,
+                fecha_de_compra: fechaDeCompra
             })
                 .then(response => {
                     alert('Usuario creado con éxito');
@@ -166,9 +195,6 @@
                 })
                 .catch(error => {
                     console.error('Error al crear usuario:', error.response ? error.response.data : error);
-                    if (error.response && error.response.data) {
-                        console.error('Detalles del error:', error.response.data);
-                    }
                     alert('Error al crear usuario. Por favor, revisa los datos ingresados.');
                 });
         });
@@ -180,9 +206,13 @@
                 currentUserId = event.target.getAttribute('data-userid');
                 const username = event.target.closest('tr').children[0].innerText;
                 const password = event.target.closest('tr').children[1].innerText;
+                const color = event.target.closest('tr').children[2].innerText;
+                const fecha = event.target.closest('tr').children[3].innerText;
 
                 document.getElementById('emailModalEdit').value = username;
                 document.getElementById('passwordModalEdit').value = password;
+                document.getElementById('colorModalEdit').value = color; // Cargar color
+                document.getElementById('fechaModalEdit').value = fecha; // Cargar fecha
 
                 var modal = new bootstrap.Modal(document.getElementById('editarUsuarioModal'));
                 modal.show();
@@ -204,12 +234,16 @@
 
         document.getElementById('formularioEditarUsuarioModal').addEventListener('submit', function (event) {
             event.preventDefault();
-            const email = document.getElementById('emailModalEdit').value;
-            const password = document.getElementById('passwordModalEdit').value;
+            const marca = document.getElementById('emailModalEdit').value;
+            const modelo = document.getElementById('passwordModalEdit').value;
+            const color = document.getElementById('colorModalEdit').value;
+            const fechaDeCompra = document.getElementById('fechaModalEdit').value; // Asegúrate de tener este campo
 
             axios.put(`http://127.0.0.1:8000/user/${currentUserId}`, {
-                username: email,
-                password: password
+                marca: marca,
+                modelo: modelo,
+                color: color,
+                fecha_de_compra: fechaDeCompra
             })
                 .then(response => {
                     alert('Usuario actualizado con éxito');
@@ -218,10 +252,12 @@
                     document.getElementById('btnListar').click();
                 })
                 .catch(error => {
-                    console.error('Error al actualizar usuario:', error);
+                    console.error('Error al actualizar usuario:', error.response ? error.response.data : error);
                     alert('Error al actualizar usuario. Por favor, revisa los datos ingresados.');
                 });
         });
+
+
     </script>
 </body>
 
