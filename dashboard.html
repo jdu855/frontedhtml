@@ -47,7 +47,6 @@
                     </table>
                 </div>
 
-                <!-- Modal Crear Usuario -->
                 <div class="modal fade" id="crearUsuarioModal" tabindex="-1" aria-labelledby="crearUsuarioModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -86,7 +85,7 @@
                     </div>
                 </div>
 
-                <!-- Modal Editar Usuario -->
+               
                 <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -132,7 +131,7 @@
     <script>
         let currentUserId = null;
 
-        // Listar usuarios
+        
         document.getElementById('btnListar').addEventListener('click', function () {
             axios.get('http://127.0.0.1:8000/users/mysql')
                 .then(response => {
@@ -179,7 +178,7 @@
             const marca = document.getElementById('emailModal').value;
             const modelo = document.getElementById('passwordModal').value;
             const color = document.getElementById('colorModal').value;
-            const fechaDeCompra = document.getElementById('fechaModal').value; // Asegúrate de tener este campo
+            const fechaDeCompra = document.getElementById('fechaModal').value; 
 
             axios.post('http://127.0.0.1:8000/user', {
                 marca: marca,
@@ -211,8 +210,8 @@
 
                 document.getElementById('emailModalEdit').value = username;
                 document.getElementById('passwordModalEdit').value = password;
-                document.getElementById('colorModalEdit').value = color; // Cargar color
-                document.getElementById('fechaModalEdit').value = fecha; // Cargar fecha
+                document.getElementById('colorModalEdit').value = color;
+                document.getElementById('fechaModalEdit').value = fecha; 
 
                 var modal = new bootstrap.Modal(document.getElementById('editarUsuarioModal'));
                 modal.show();
@@ -237,8 +236,7 @@
             const marca = document.getElementById('emailModalEdit').value;
             const modelo = document.getElementById('passwordModalEdit').value;
             const color = document.getElementById('colorModalEdit').value;
-            const fechaDeCompra = document.getElementById('fechaModalEdit').value; // Asegúrate de tener este campo
-
+            const fechaDeCompra = document.getElementById('fechaModalEdit').value;
             axios.put(`http://127.0.0.1:8000/user/${currentUserId}`, {
                 marca: marca,
                 modelo: modelo,

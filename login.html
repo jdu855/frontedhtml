@@ -101,29 +101,29 @@
 
     <script>
         document.getElementById('btnIngresar').addEventListener('click', function (e) {
-    e.preventDefault(); // Previene el comportamiento por defecto del botón de formulario
+    e.preventDefault(); 
 
-    let email = document.getElementById('email').value;  // Cambiado a 'email'
+    let email = document.getElementById('email').value;  
     let password = document.getElementById('password').value;
 
     axios({
         method: 'post',
         url: 'http://127.0.0.1:8000/login',
         data: {
-            email: email,  // Usa 'email' aquí
+            email: email,  
             password: password
         }
     }).then(function (response) {
         console.log(response.data);
-        if (response.data.estado === 'success') { // Asegúrate de que usas response.data
-            window.location.href = './dashboard.html'; // Redirige al dashboard
+        if (response.data.estado === 'success') { 
+            window.location.href = './dashboard.html'; 
         } else {
             alert('Sigue intentando: ' + response.data.mensaje);
         }
     }).catch(function (error) {
         console.error(error);
         if (error.response) {
-            alert('Error: ' + error.response.data.detail); // Muestra el detalle del error
+            alert('Error: ' + error.response.data.detail); 
         } else {
             alert('Error: ' + error.message);
         }
