@@ -132,8 +132,6 @@
         let currentUserId = null;
 
         
-
-        
         document.getElementById('btnListar').addEventListener('click', function () {
             axios.get('http://127.0.0.1:8000/users/mysql')
                 .then(response => {

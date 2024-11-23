@@ -100,41 +100,41 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        document.getElementById('btnIngresar').addEventListener('click', function (e) {
-            e.preventDefault(); // Evitar que se recargue la página
-    
-            let email = document.getElementById('email').value;  
-            let password = document.getElementById('password').value;
-    
-            // Crear un nuevo FormData
-            let formData = new FormData();
-            formData.append('username', email);  // Enviar 'email' como 'username'
-            formData.append('password', password); // Enviar la contraseña
-    
-            // Usar axios para enviar la solicitud POST
-            axios.post('http://127.0.0.1:8000/login', formData)
-                .then(function (response) {
-                    console.log(response.data);
-                    if (response.data.access_token) { 
-                        // Guardar el token en el localStorage
-                        localStorage.setItem('access_token', response.data.access_token);
-                        window.location.href = './dashboard.html';  // Redirigir si el login es exitoso
-                    } else {
-                        alert('Sigue intentando: ' + response.data.detail);  // Mensaje si las credenciales son incorrectas
-                    }
-                })
-                .catch(function (error) {
-                    console.error(error);
-                    if (error.response) {
-                        alert('Error: ' + error.response.data.detail);  // Mostrar mensaje de error del backend
-                    } else {
-                        alert('Error: ' + error.message);  // Mensaje si ocurre otro tipo de error
-                    }
-                });
-        });
+       document.getElementById('btnIngresar').addEventListener('click', function (e) {
+    e.preventDefault(); 
+
+    let email = document.getElementById('email').value;  
+    let password = document.getElementById('password').value;
+
+    axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/login',
+        data: {
+            email: email,  // Cambiado de username a email si es necesario
+            password: password
+        }
+    }).then(function (response) {
+        console.log(response.data);
+        if (response.data.access_token) { // Verifica si el token está presente
+            // Guardar el token en localStorage o sessionStorage si es necesario
+            localStorage.setItem('access_token', response.data.access_token);
+            window.location.href = './dashboard.html'; 
+        } else {
+            alert('Sigue intentando: ' + response.data.mensaje || 'Error desconocido');
+        }
+    }).catch(function (error) {
+        console.error(error);
+        if (error.response) {
+            alert('Error: ' + error.response.data.detail); 
+        } else {
+            alert('Error: ' + error.message);
+        }
+    });
+});
+
+
+
     </script>
-    
-    
 
 </body>
 
