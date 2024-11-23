@@ -187,13 +187,13 @@
                 fecha_de_compra: fechaDeCompra
             })
                 .then(response => {
-                    alert('Usuario creado con éxito');
+                    alert('auto creado con éxito');
                     var modal = bootstrap.Modal.getInstance(document.getElementById('crearUsuarioModal'));
                     modal.hide();
                     document.getElementById('btnListar').click();
                 })
                 .catch(error => {
-                    console.error('Error al crear usuario:', error.response ? error.response.data : error);
+                    console.error('Error al crear auto:', error.response ? error.response.data : error);
                     alert('Error al crear usuario. Por favor, revisa los datos ingresados.');
                 });
         });
@@ -221,7 +221,7 @@
                 const userId = event.target.getAttribute('data-userid');
                 axios.delete(`http://127.0.0.1:8000/user/${userId}`)
                     .then(response => {
-                        alert('Usuario eliminado');
+                        alert('auto eliminado');
                         event.target.closest('tr').remove();
                     })
                     .catch(error => {
